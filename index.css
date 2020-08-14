@@ -1,0 +1,39 @@
+body {margin: 0;}
+
+#contro {
+  background-color: #d5d78eba;
+  display: none;
+}
+.arrow {
+  padding: 10px 20px;
+  background-color: #3e223782;
+  margin: 5px 30px;
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+}
+
+#score {
+  width: 100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+#start {
+  position: absolute;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  /* padding: 10px 20px; */
+  border-radius: 50%;
+  background-color: sandybrown;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: aliceblue;
+}
