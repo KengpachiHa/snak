@@ -1,5 +1,5 @@
 import fs from 'fs'
-import path from "path"
+import path, { resolve } from "path"
 import child_process from 'child_process'
 import ncp from 'ncp'
 
@@ -10,54 +10,42 @@ const cp = ncp.ncp
 ncp.limit = 16
 const snakSource      = '/Users/hanjunyi/store/code/snak/dist'
 const blogDestination = '/Users/hanjunyi/store/blog/blog/source/snak'
+const blogPath        = '/Users/hanjunyi/store/blog/blog/'
 const op = {
   dereference: true,
   clobber: false
 }
 
 const buildSnak = new Promise((resolve, reject) => {
-  spawn('npm',['run', 'build']).on('close', (data) => {
-    resolve(data)
+  spawn('npm',['run', 'build'])
+    .on('close', (code, signal)=> {
+      if(code == 0) console.log('=== after build === && code= ', code)
+      resolve()
+      if(code != 0) reject(code)
+    })
+})
+buildSnak
+  .then(() => {
+    spawn('rm', ['-rf', blogDestination]).on('close', (code) => {
+      if(code == 0) console.log('=== after clean /blog/snak === && code= ', code) 
+      resolve()
+    })
   })
-})
-buildSnak.then((v) => {
-  cp(snakSource, blogDestination, op, function (err) {
-    if (err) {
-      return console.error(err);
-    }
-    console.log('done!');
-   });
-})
-
-
-
-// import { stdout } from 'process';
-// const exec = child_process.exec
-
-
-
-// build.on('error', (err) => {
-//   console.log(err)
-// })
-
-// exec('npm run build', (err, stdout, stderr) => {
-//   console.log('after build in push ==>>', stdout, stderr)
-//   exec('cd ../snak', (e, out, outerr) => {
-//     console.log(path.resolve('./'))
-//   })
-// })
-
-// exec('cd /Users/hanjunyi/store/code/blog ', (e, out, outerr) => {
-//   console.log(path.resolve('/Users/hanjunyi/store/code/blog'), outerr, out)
-
-
-// })
-// exec('cd /Users/hanjunyi/store/code/blog',)
-// path.resolve('/Users','/hanjunyi')
-// console.log(path.resolve())
-// console.log(process.cwd())
-// const blogPath = '/Users/hanjunyi/store/blog/blog/source/snak/index.html'
-// fs.unlink(blogPath, (err) => {
-//   if(err) { console.log(err) }
-//     console.log('unlink ')
-// })
+  .then(() => {
+    cp(snakSource, blogDestination, op, function (err) {
+      if (err) {
+        return console.log(err);
+      }
+      console.log('cp snak done!');
+      resolve()
+    });
+  })
+  .then(() => {
+    const generate = spawn('hexo', ['g', '-d'], { cwd: blogPath})
+    generate.on('close', (code, signal) => {
+      console.log('=== after generating ===', code, signal)
+    })
+    generate.on('error', (err) => {
+      console.log('err====', err)
+    })
+  })

@@ -15,7 +15,8 @@
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
     "@babel/register": "^7.10.5",
-    "cssnano": "^4.1.10"
+    "cssnano": "^4.1.10",
+    "parcel-plugin-clean-dist": "0.0.6"
   },
   "dependencies": {
     "ncp": "^2.0.0"

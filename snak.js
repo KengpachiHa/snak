@@ -68,6 +68,9 @@ function main () {
     gap = 600
     // interval = setInterval(main, gap);
   }
+  if(snak.win) {
+    console.log('win')
+  }
 }
 
 document.onkeydown = (e) => keyDown(e.keyCode)

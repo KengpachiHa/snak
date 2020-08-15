@@ -68,7 +68,10 @@ snak.die = (head, arr, width = 600, height = 600) => {
   if(dead) arr.length = 0
   return dead
 }
-
+snak.win = () => {
+  let win = false
+  return win
+}
 const creatApple = (snakArr, mapLineArr) => {
   const voidGround = deleteSnak(snakArr, getMapArr(mapLineArr))
   let random = Math.floor(Math.random() * voidGround.length)
