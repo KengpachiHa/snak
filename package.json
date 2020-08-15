@@ -4,13 +4,20 @@
   "main": "index.js",
   "scripts": {
     "dev": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html --public-url ./ ",
+    "push": "node push_hexo.js"
   },
   "author": "",
   "license": "ISC",
   "keywords": [],
   "description": "",
   "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/register": "^7.10.5",
     "cssnano": "^4.1.10"
+  },
+  "dependencies": {
+    "ncp": "^2.0.0"
   }
 }
