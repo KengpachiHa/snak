@@ -8,3 +8,6 @@ snak game by js &amp; canvas.
 
 ### to build
 - npm run build
+
+### to build & generte blog
+- npm run push

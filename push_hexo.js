@@ -1,5 +1,4 @@
-import fs from 'fs'
-import path, { resolve } from "path"
+
 import child_process from 'child_process'
 import ncp from 'ncp'
 
@@ -28,7 +27,6 @@ buildSnak
   .then(() => {
     spawn('rm', ['-rf', blogDestination]).on('close', (code) => {
       if(code == 0) console.log('=== after clean /blog/snak === && code= ', code) 
-      resolve()
     })
   })
   .then(() => {
@@ -37,7 +35,6 @@ buildSnak
         return console.log(err);
       }
       console.log('cp snak done!');
-      resolve()
     });
   })
   .then(() => {
