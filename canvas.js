@@ -24,7 +24,8 @@ draw.map = (arr, lineColor = mapLineColor) => {
   ctx.stroke()
 }
 draw.snak = (arr, snakColor = 'yellow') => {
-  arr.forEach(point => {
+  arr.forEach((point, idx) => {
+    if(idx == 0) drawSnakHead(point)
     ctx.beginPath()
     ctx.fillStyle = snakColor
     ctx.arc(point[0], point[1], 10, 0, 2 * Math.PI)
@@ -39,6 +40,10 @@ draw.apple = (point) => {
 }
 draw.clearAll = () => ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+
+function drawSnakHead (point) {
+  
+}
 export {
   canvas, ctx,
   draw,

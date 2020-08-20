@@ -25,17 +25,22 @@ const buildSnak = new Promise((resolve, reject) => {
 })
 buildSnak
   .then(() => {
-    spawn('rm', ['-rf', blogDestination]).on('close', (code) => {
-      if(code == 0) console.log('=== after clean /blog/snak === && code= ', code) 
+    return new Promise((rs, rj) => {
+      spawn('rm', ['-rf', blogDestination]).on('close', (code) => {
+        if(code == 0) {
+          console.log('=== after clean /blog/snak === && code= ', code) 
+          rs()
+        } else rj(reason)
+      })
     })
   })
   .then(() => {
-    cp(snakSource, blogDestination, op, function (err) {
-      if (err) {
-        return console.log(err);
-      }
-      console.log('cp snak done!');
-    });
+    return new Promise((rs, rj) => {
+      cp(snakSource, blogDestination, op, function (err) {
+        console.log('cp snak done!');
+        rs()
+      })
+    })
   })
   .then(() => {
     const generate = spawn('hexo', ['g', '-d'], { cwd: blogPath})
